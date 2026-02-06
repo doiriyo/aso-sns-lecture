@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>写真提出 | 阿蘇の次世代観光リーダー育成プログラム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0d;
+    --card: #141c18;
+    --card-border: #1e2e25;
+    --accent: #6ee7a0;
+    --accent-dim: #2d6e4a;
+    --accent-glow: rgba(110, 231, 160, 0.15);
+    --text: #e8ede9;
+    --text-dim: #8a9b8f;
+    --text-muted: #4a5f50;
+    --white: #ffffff;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 20%, rgba(110, 231, 160, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(110, 231, 160, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* Floating dots decoration */
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-dots span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    animation: floatDot 8s infinite;
+  }
+
+  .hero-dots span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+  .hero-dots span:nth-child(2) { left: 25%; top: 60%; animation-delay: 1.5s; }
+  .hero-dots span:nth-child(3) { left: 70%; top: 15%; animation-delay: 3s; }
+  .hero-dots span:nth-child(4) { left: 85%; top: 45%; animation-delay: 4.5s; }
+  .hero-dots span:nth-child(5) { left: 50%; top: 80%; animation-delay: 6s; }
+  .hero-dots span:nth-child(6) { left: 40%; top: 30%; animation-delay: 2s; }
+
+  @keyframes floatDot {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    20% { opacity: 0.4; }
+    50% { opacity: 0.2; }
+    80% { opacity: 0.4; }
+    90% { opacity: 0; transform: translateY(-60px); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    background: rgba(20, 28, 24, 0.6);
+    animation: fadeInDown 0.8s ease-out both;
+  }
+
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(2rem, 7vw, 4rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero-title .accent {
+    color: var(--accent);
+    display: inline-block;
+  }
+
+  .hero-sub {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(110, 231, 160, 0.3);
+  }
+
+  .hero-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s;
+  }
+
+  .hero-cta:hover svg {
+    transform: translateY(2px);
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Content ── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* ── Steps Section ── */
+  .steps-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+
+  .step:hover {
+    border-color: var(--accent-dim);
+    background: linear-gradient(135deg, var(--card) 0%, rgba(110, 231, 160, 0.03) 100%);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--accent-glow);
+    color: var(--accent);
+    font-weight: 900;
+    font-size: 0.9rem;
+  }
+
+  .step-body h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .step-body p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ── Checklist Section ── */
+  .checklist-section {
+    margin-bottom: 4rem;
+  }
+
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--accent-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .check-icon svg {
+    width: 13px;
+    height: 13px;
+    color: var(--accent);
+  }
+
+  .check-item.warning {
+    border-color: rgba(248, 113, 113, 0.2);
+    background: rgba(248, 113, 113, 0.04);
+  }
+
+  .check-item.warning .check-icon {
+    background: rgba(248, 113, 113, 0.12);
+  }
+
+  .check-item.warning .check-icon svg {
+    color: var(--danger);
+  }
+
+  /* ── Form Section ── */
+  .form-section {
+    scroll-margin-top: 2rem;
+  }
+
+  .form-section .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .form-note {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+  }
+
+  .form-wrapper {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dim));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .form-wrapper iframe {
+    width: 100%;
+    min-height: 900px;
+    border: none;
+    display: block;
+  }
+
+  /* Placeholder for when no Google Form URL is set */
+  .form-placeholder {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .form-placeholder .icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.5rem;
+    border-radius: 14px;
+    background: var(--accent-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-placeholder .icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+  }
+
+  .form-placeholder h3 {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .form-placeholder p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .form-placeholder code {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(110, 231, 160, 0.08);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-family: monospace;
+    word-break: break-all;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+    border-top: 1px solid var(--card-border);
+    margin-top: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1.25rem; }
+    .content { padding: 0 1.25rem 3rem; }
+    .step { padding: 1rem; }
+    .form-wrapper iframe { min-height: 1000px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ━━ Hero ━━ -->
+<section class="hero">
+  <div class="hero-dots">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-badge">
+    <span class="dot"></span>
+    令和8年2月9日 ｜ 提出受付中
+  </div>
+
+  <h1 class="hero-title">
+    阿蘇の高校生、<br><span class="accent">本気で撮ってみた。</span>
+  </h1>
+
+  <p class="hero-sub">
+    今日撮った写真とコメントを提出してください。<br>
+    あなたの1枚が、阿蘇市公式Instagram<br>
+    「asostagram」のリール動画になります。
+  </p>
+
+  <a href="#form" class="hero-cta">
+    提出フォームへ進む
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
+</section>
+
+<!-- ━━ Content ━━ -->
+<div class="content">
+
+  <!-- Steps -->
+  <section class="steps-section">
+    <p class="section-label">How to Submit</p>
+    <h2 class="section-title">提出の流れ</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>写真を選ぶ</h3>
+          <p>火山博物館・午後アクティビティで撮った写真から、お気に入りを選んでください（複数OK）。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>コメントを書く</h3>
+          <p>「この写真で伝えたいこと」または「ここで撮った理由」を一言で書いてください。リール動画のテロップに使います。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>フォームから送信</h3>
+          <p>下のフォームから写真・撮影場所・コメントを送信してください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checklist -->
+  <section class="checklist-section">
+    <p class="section-label">Before You Submit</p>
+    <h2 class="section-title">提出前チェック</h2>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span>「この写真で何を伝えたいか」を自分の言葉で説明できる</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span>ゴミ箱・看板・電線など、不要なノイズが映り込んでいない</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span>撮影場所を覚えている（保存カードのMAPに使います）</span>
+      </div>
+      <div class="check-item warning">
+        <div class="check-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        </div>
+        <span>一般の方の顔がはっきり映っている写真は避けてください（肖像権への配慮）</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="form-section" id="form">
+    <p class="section-label">Submit Your Work</p>
+    <h2 class="section-title">写真・素材提出フォーム</h2>
+    <div class="form-note">
+      📱 写真は<strong>複数枚</strong>送れます。火山博物館と午後アクティビティ、それぞれのベストショットを送ってもらえると嬉しいです。
+    </div>
+    <div class="form-wrapper">
+      <!--
+        ┌─────────────────────────────────────────────┐
+        │  Google フォームの埋め込み方法               │
+        │                                              │
+        │  1. Google フォームを作成                    │
+        │  2. 「送信」→「＜＞埋め込み」を選択          │
+        │  3. 表示されたURLをコピー                    │
+        │  4. 下の GOOGLE_FORM_EMBED_URL を置き換え     │
+        │                                              │
+        │  例: https://docs.google.com/forms/d/e/      │
+        │       xxxxx/viewform?embedded=true           │
+        └─────────────────────────────────────────────┘
+      -->
+
+      <!-- ▼▼▼ ここのURLをGoogleフォームの埋め込みURLに差し替えてください ▼▼▼ -->
+      <!-- <iframe src="GOOGLE_FORM_EMBED_URL" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe> -->
+
+      <!-- ↓ フォームURL未設定時に表示されるプレースホルダー（上のiframeを有効にしたらこのdivは削除） -->
+      <div class="form-placeholder">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Googleフォームを埋め込む</h3>
+        <p>HTMLファイル内のコメントに従って、GoogleフォームのURLを設定してください。</p>
+        <code>src="GOOGLE_FORM_EMBED_URL"</code>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ━━ Footer ━━ -->
+<footer class="footer">
+  <p class="footer-logo">阿蘇の次世代観光リーダー等育成プログラム</p>
+  <p class="footer-copy">&copy; 2026 阿蘇テレワークセンター</p>
+</footer>
+
+</body>
+</html>
