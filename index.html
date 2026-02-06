@@ -504,98 +504,69 @@
     line-height: 1.7;
   }
 
-  /* ━━ CTA Banner (Form Link) ━━ */
-  .cta-banner {
-    margin-bottom: 2rem;
+  /* ━━ Form CTA Header Bar ━━ */
+  .form-header-bar {
+    display: block;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(110, 231, 160, 0.12) 0%, rgba(45, 110, 74, 0.18) 100%);
+    border-top: 1px solid var(--accent-dim);
+    border-bottom: 1px solid var(--accent-dim);
+    text-decoration: none;
+    transition: all 0.3s;
     position: relative;
     overflow: hidden;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--card) 0%, rgba(110, 231, 160, 0.06) 100%);
-    border: 1px solid var(--accent-dim);
-    padding: 2rem;
-    text-align: center;
   }
 
-  .cta-banner::before {
+  .form-header-bar::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-dim));
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
 
-  .cta-badge {
-    display: inline-flex;
+  .form-header-bar:hover {
+    background: linear-gradient(135deg, rgba(110, 231, 160, 0.18) 0%, rgba(45, 110, 74, 0.25) 100%);
+  }
+
+  .form-header-inner {
+    display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 100px;
-    background: var(--accent-glow);
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 720px;
+    margin: 0 auto;
   }
 
-  .cta-badge .dot {
-    width: 5px;
-    height: 5px;
+  .form-header-dot {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--accent);
     animation: pulse 2s infinite;
+    flex-shrink: 0;
   }
 
-  .cta-title {
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
-  }
-
-  .cta-desc {
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.85rem 2rem;
-    background: var(--accent);
-    color: var(--bg);
-    font-weight: 700;
+  .form-header-text {
     font-size: 0.95rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
   }
 
-  .cta-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(110, 231, 160, 0.3);
-  }
-
-  .cta-link svg {
-    width: 16px;
-    height: 16px;
+  .form-header-arrow {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
     transition: transform 0.3s;
   }
 
-  .cta-link:hover svg {
-    transform: translateX(3px);
+  .form-header-bar:hover .form-header-arrow {
+    transform: translateX(4px);
   }
 
   /* ━━ Footer ━━ */
@@ -677,26 +648,18 @@
     <p class="hero-date">令和8年2月9日 開催</p>
   </section>
 
+  <!-- ━━ Form CTA Header Bar ━━ -->
+  <!-- ▼ GASウェブアプリのURLに差し替えてください ▼ -->
+  <a href="https://script.google.com/macros/s/xxxxxx/exec" target="_blank" class="form-header-bar">
+    <span class="form-header-inner">
+      <span class="form-header-dot"></span>
+      <span class="form-header-text">📷 写真・素材の提出はこちら</span>
+      <svg class="form-header-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </span>
+  </a>
+
   <!-- Content -->
   <div class="content">
-
-    <!-- CTA Banner → Form Page (TOP) -->
-    <section class="cta-banner">
-      <div class="cta-badge">
-        <span class="dot"></span>
-        提出受付中
-      </div>
-      <h3 class="cta-title">写真・素材の提出はこちら</h3>
-      <p class="cta-desc">
-        今日撮った写真とコメントを提出してください。<br>
-        あなたの1枚が asostagram のリール動画になります。
-      </p>
-      <!-- ▼ フォームページのURLに差し替えてください ▼ -->
-      <a href="submit.html" class="cta-link">
-        提出フォームへ進む
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </section>
 
     <!-- Download Section -->
     <section class="download-section">
