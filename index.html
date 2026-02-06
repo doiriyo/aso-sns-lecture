@@ -1,697 +1,806 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SNS講座資料ダウンロード | 阿蘇の次世代観光リーダー等育成プログラム</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --color-primary: #063E5F;
-      --color-primary-light: #0a5a8a;
-      --color-primary-dark: #042a42;
-      --color-accent: #2d8fd5;
-      --color-accent-hover: #1a7ac0;
-      --color-dark: #1a1a1a;
-      --color-gray: #4a4a4a;
-      --color-light-gray: #8a8a8a;
-      --color-cream: #f7f9fb;
-      --color-white: #ffffff;
-      --font-gothic: 'Zen Kaku Gothic New', sans-serif;
-      --font-mincho: 'Shippori Mincho', serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNS講座資料ダウンロード | 阿蘇の次世代観光リーダー等育成プログラム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0d;
+    --card: #141c18;
+    --card-border: #1e2e25;
+    --accent: #6ee7a0;
+    --accent-dim: #2d6e4a;
+    --accent-glow: rgba(110, 231, 160, 0.15);
+    --text: #e8ede9;
+    --text-dim: #8a9b8f;
+    --text-muted: #4a5f50;
+    --white: #ffffff;
+    --danger: #f87171;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-    body {
-      font-family: var(--font-gothic);
-      background: var(--color-cream);
-      color: var(--color-dark);
-      line-height: 1.8;
-      min-height: 100vh;
-    }
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    /* ===========================
-       Password Screen
-    =========================== */
-    .password-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 24px;
-    }
+  /* ━━ Password Screen ━━ */
+  .password-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+  }
 
-    .password-screen.hidden {
-      display: none;
-    }
+  .password-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(110, 231, 160, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-    .password-box {
-      background: var(--color-white);
-      border-radius: 20px;
-      padding: 48px 40px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: fadeInUp 0.6s ease-out;
-    }
+  .password-screen.hidden { display: none; }
 
-    .password-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-    }
+  .password-box {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out;
+  }
 
-    .password-icon svg {
-      width: 28px;
-      height: 28px;
-      color: var(--color-white);
-    }
+  .password-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--accent-glow);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
 
-    .password-title {
-      font-family: var(--font-mincho);
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--color-dark);
-      margin-bottom: 8px;
-    }
+  .password-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+  }
 
-    .password-subtitle {
-      font-size: 14px;
-      color: var(--color-gray);
-      margin-bottom: 28px;
-    }
+  .password-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
 
-    .password-input-wrapper {
-      position: relative;
-      margin-bottom: 16px;
-    }
+  .password-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 1.75rem;
+  }
 
-    .password-input {
-      width: 100%;
-      padding: 16px 20px;
-      font-size: 16px;
-      font-family: var(--font-gothic);
-      border: 2px solid #e0e5ea;
-      border-radius: 12px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
+  .password-input {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    font-size: 1rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text);
+    outline: none;
+    transition: all 0.3s;
+    margin-bottom: 0.75rem;
+  }
 
-    .password-input:focus {
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 4px rgba(45, 143, 213, 0.15);
-    }
+  .password-input::placeholder { color: var(--text-muted); }
 
-    .password-input.error {
-      border-color: #e74c3c;
-      animation: shake 0.4s ease;
-    }
+  .password-input:focus {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 0 3px rgba(110, 231, 160, 0.1);
+  }
 
-    .password-submit {
-      width: 100%;
-      padding: 16px 24px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: var(--font-gothic);
-      background: var(--color-primary);
-      color: var(--color-white);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+  .password-input.error {
+    border-color: var(--danger);
+    animation: shake 0.4s ease;
+  }
 
-    .password-submit:hover {
-      background: var(--color-primary-light);
-      transform: translateY(-1px);
-    }
+  .password-submit {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
 
-    .password-error {
-      color: #e74c3c;
-      font-size: 13px;
-      margin-top: 12px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+  .password-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(110, 231, 160, 0.25);
+  }
 
-    .password-error.show {
-      opacity: 1;
-    }
+  .password-error {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 
-    .password-hint {
-      font-size: 12px;
-      color: var(--color-light-gray);
-      margin-top: 24px;
-    }
+  .password-error.show { opacity: 1; }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-8px); }
-      50% { transform: translateX(8px); }
-      75% { transform: translateX(-8px); }
-    }
+  .password-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 1.25rem;
+  }
 
-    /* ===========================
-       Main Content (hidden until password entered)
-    =========================== */
-    .main-wrapper {
-      display: none;
-    }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+  }
 
-    .main-wrapper.visible {
-      display: block;
-    }
+  /* ━━ Main Wrapper ━━ */
+  .main-wrapper { display: none; }
+  .main-wrapper.visible { display: block; }
 
-    /* Hero Section */
-    .hero {
-      position: relative;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-      padding: 80px 24px 100px;
-      overflow: hidden;
-    }
+  /* ━━ Hero ━━ */
+  .hero {
+    position: relative;
+    min-height: 80svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem 5rem;
+    overflow: hidden;
+  }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(45, 143, 213, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
-      pointer-events: none;
-    }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 20%, rgba(110, 231, 160, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(110, 231, 160, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 80px;
-      background: var(--color-cream);
-      clip-path: ellipse(60% 100% at 50% 100%);
-    }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+    pointer-events: none;
+  }
 
-    .hero-content {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-      z-index: 1;
-    }
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      color: var(--color-white);
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      margin-bottom: 24px;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      animation: fadeInDown 0.8s ease-out;
-    }
+  .hero-dots span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    animation: floatDot 8s infinite;
+  }
 
-    .hero-title {
-      font-family: var(--font-mincho);
-      font-size: clamp(28px, 6vw, 42px);
-      font-weight: 700;
-      color: var(--color-white);
-      margin-bottom: 16px;
-      letter-spacing: 0.05em;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
+  .hero-dots span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+  .hero-dots span:nth-child(2) { left: 25%; top: 60%; animation-delay: 1.5s; }
+  .hero-dots span:nth-child(3) { left: 70%; top: 15%; animation-delay: 3s; }
+  .hero-dots span:nth-child(4) { left: 85%; top: 45%; animation-delay: 4.5s; }
+  .hero-dots span:nth-child(5) { left: 50%; top: 80%; animation-delay: 6s; }
+  .hero-dots span:nth-child(6) { left: 40%; top: 30%; animation-delay: 2s; }
 
-    .hero-subtitle {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 8px;
-      animation: fadeInUp 0.8s ease-out 0.4s both;
-    }
+  @keyframes floatDot {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    20% { opacity: 0.4; }
+    50% { opacity: 0.2; }
+    80% { opacity: 0.4; }
+    90% { opacity: 0; transform: translateY(-60px); }
+  }
 
-    .hero-date {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.65);
-      animation: fadeInUp 0.8s ease-out 0.5s both;
-    }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    background: rgba(20, 28, 24, 0.6);
+    animation: fadeInDown 0.8s ease-out both;
+  }
 
-    /* Main Content */
-    .main-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 24px 80px;
-    }
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
 
-    /* Section */
-    .section {
-      margin-bottom: 48px;
-    }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
+  .hero-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
 
-    .section-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--color-primary);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-white);
-      font-size: 18px;
-    }
+  .hero-title .accent {
+    color: var(--accent);
+  }
 
-    .section-title {
-      font-family: var(--font-mincho);
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--color-dark);
-    }
+  .hero-sub {
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 0.75rem;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
 
-    /* Download Cards */
-    .download-grid {
-      display: grid;
-      gap: 20px;
-    }
+  .hero-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    animation: fadeInUp 0.8s ease-out 0.5s both;
+  }
 
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ━━ Content ━━ */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+  }
+
+  /* ━━ Download Section ━━ */
+  .download-section {
+    margin-bottom: 4rem;
+  }
+
+  .download-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .download-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    transition: all 0.3s;
+  }
+
+  .download-card:hover {
+    border-color: var(--accent-dim);
+    background: linear-gradient(135deg, var(--card) 0%, rgba(110, 231, 160, 0.03) 100%);
+    transform: translateY(-2px);
+  }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .card-description {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .card-meta svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .download-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 24px rgba(110, 231, 160, 0.25);
+  }
+
+  .download-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ━━ Info Box ━━ */
+  .info-section {
+    margin-bottom: 4rem;
+  }
+
+  .info-box {
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    border-left: 3px solid var(--accent-dim);
+  }
+
+  .info-box-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-box-title svg {
+    width: 16px;
+    height: 16px;
+    color: var(--accent);
+  }
+
+  .info-box ul {
+    list-style: none;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .info-box li {
+    padding: 0.25rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .info-box li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-dim);
+    font-weight: bold;
+  }
+
+  /* ━━ Message Box ━━ */
+  .message-section {
+    margin-bottom: 4rem;
+  }
+
+  .message-box {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .message-quote {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .message-text {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ━━ CTA Banner (Form Link) ━━ */
+  .cta-banner {
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--card) 0%, rgba(110, 231, 160, 0.06) 100%);
+    border: 1px solid var(--accent-dim);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dim));
+  }
+
+  .cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    background: var(--accent-glow);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .cta-badge .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  .cta-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .cta-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .cta-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(110, 231, 160, 0.3);
+  }
+
+  .cta-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+
+  .cta-link:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ━━ Footer ━━ */
+  .footer {
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+    border-top: 1px solid var(--card-border);
+    margin-top: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  /* ━━ Responsive ━━ */
+  @media (max-width: 640px) {
+    .password-box { padding: 2.5rem 1.75rem; }
+    .hero { padding: 2.5rem 1.25rem 4rem; }
+    .content { padding: 0 1.25rem 3rem; }
     .download-card {
-      background: var(--color-white);
-      border-radius: 16px;
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
+      flex-direction: column;
+      align-items: stretch;
     }
-
-    .download-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(6, 62, 95, 0.12);
-    }
-
-    .card-info {
-      flex: 1;
-    }
-
-    .card-label {
-      font-size: 12px;
-      color: var(--color-accent);
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--color-dark);
-      margin-bottom: 6px;
-    }
-
-    .card-description {
-      font-size: 14px;
-      color: var(--color-gray);
-    }
-
-    .card-meta {
-      display: flex;
-      gap: 16px;
-      margin-top: 10px;
-      font-size: 12px;
-      color: var(--color-light-gray);
-    }
-
-    .card-meta span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
     .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--color-accent);
-      color: var(--color-white);
-      padding: 14px 28px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      white-space: nowrap;
+      justify-content: center;
+      width: 100%;
     }
-
-    .download-btn:hover {
-      background: var(--color-accent-hover);
-      transform: scale(1.02);
-    }
-
-    .download-btn svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    /* Info Box */
-    .info-box {
-      background: linear-gradient(135deg, #f0f4f8 0%, #e8eef3 100%);
-      border-radius: 16px;
-      padding: 28px 32px;
-      border-left: 4px solid var(--color-primary);
-    }
-
-    .info-box-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--color-dark);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .info-box ul {
-      list-style: none;
-      font-size: 14px;
-      color: var(--color-gray);
-    }
-
-    .info-box li {
-      padding: 6px 0;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .info-box li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--color-primary);
-      font-weight: bold;
-    }
-
-    /* Message Box */
-    .message-box {
-      background: var(--color-white);
-      border-radius: 16px;
-      padding: 32px;
-      text-align: center;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .message-quote {
-      font-family: var(--font-mincho);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-
-    .message-text {
-      font-size: 14px;
-      color: var(--color-gray);
-    }
-
-    /* Footer */
-    .page-footer {
-      text-align: center;
-      padding: 32px 24px;
-      background: var(--color-white);
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .footer-org {
-      font-size: 13px;
-      color: var(--color-gray);
-      margin-bottom: 4px;
-    }
-
-    .footer-copy {
-      font-size: 12px;
-      color: var(--color-light-gray);
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      .password-box {
-        padding: 36px 28px;
-      }
-
-      .hero {
-        padding: 60px 20px 80px;
-      }
-
-      .main-content {
-        padding: 40px 20px 60px;
-      }
-
-      .download-card {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 24px;
-      }
-
-      .download-btn {
-        justify-content: center;
-        width: 100%;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <!-- Password Screen -->
-  <div class="password-screen" id="passwordScreen">
-    <div class="password-box">
-      <div class="password-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      </div>
-      <h1 class="password-title">パスワードを入力</h1>
-      <p class="password-subtitle">このページは限定公開です</p>
-      <div class="password-input-wrapper">
-        <input type="password" class="password-input" id="passwordInput" placeholder="パスワード" autocomplete="off">
-      </div>
-      <button class="password-submit" id="passwordSubmit">アクセスする</button>
-      <p class="password-error" id="passwordError">パスワードが違います</p>
-      <p class="password-hint">※講座参加者に配布されたパスワードを入力してください</p>
+<!-- ━━ Password Screen ━━ -->
+<div class="password-screen" id="passwordScreen">
+  <div class="password-box">
+    <div class="password-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
+    <h1 class="password-title">パスワードを入力</h1>
+    <p class="password-subtitle">このページは限定公開です</p>
+    <input type="password" class="password-input" id="passwordInput" placeholder="パスワード" autocomplete="off">
+    <button class="password-submit" id="passwordSubmit">アクセスする</button>
+    <p class="password-error" id="passwordError">パスワードが違います</p>
+    <p class="password-hint">※講座参加者に配布されたパスワードを入力してください</p>
   </div>
+</div>
 
-  <!-- Main Wrapper (hidden until password entered) -->
-  <div class="main-wrapper" id="mainWrapper">
+<!-- ━━ Main Content ━━ -->
+<div class="main-wrapper" id="mainWrapper">
 
-    <!-- Hero Section -->
-    <header class="hero">
-      <div class="hero-content">
-        <span class="hero-badge">阿蘇の次世代観光リーダー等育成プログラム</span>
-        <h1 class="hero-title">SNS講座資料<br>ダウンロード</h1>
-        <p class="hero-subtitle">人生のハンドルを握るための武器</p>
-        <p class="hero-date">令和8年2月9日 開催</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-dots">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-badge">
+      <span class="dot"></span>
+      阿蘇の次世代観光リーダー等育成プログラム
+    </div>
+
+    <h1 class="hero-title">
+      SNS講座資料<br><span class="accent">ダウンロード</span>
+    </h1>
+
+    <p class="hero-sub">
+      人生のハンドルを握るための武器
+    </p>
+
+    <p class="hero-date">令和8年2月9日 開催</p>
+  </section>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- CTA Banner → Form Page (TOP) -->
+    <section class="cta-banner">
+      <div class="cta-badge">
+        <span class="dot"></span>
+        提出受付中
       </div>
-    </header>
+      <h3 class="cta-title">写真・素材の提出はこちら</h3>
+      <p class="cta-desc">
+        今日撮った写真とコメントを提出してください。<br>
+        あなたの1枚が asostagram のリール動画になります。
+      </p>
+      <!-- ▼ フォームページのURLに差し替えてください ▼ -->
+      <a href="submit.html" class="cta-link">
+        提出フォームへ進む
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </section>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Download Section -->
+    <section class="download-section">
+      <p class="section-label">Downloads</p>
+      <h2 class="section-title">資料ダウンロード</h2>
+      <div class="download-grid">
 
-      <!-- Download Section -->
-      <section class="section">
-        <div class="section-header">
-          <div class="section-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          </div>
-          <h2 class="section-title">資料ダウンロード</h2>
-        </div>
-
-        <div class="download-grid">
-          <!-- Slide -->
-          <div class="download-card">
-            <div class="card-info">
-              <div class="card-label">SLIDE</div>
-              <h3 class="card-title">講義スライド</h3>
-              <p class="card-description">3つの壁を越えるための考え方と実践テクニック</p>
-              <div class="card-meta">
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  PDF形式
-                </span>
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  2026.02.09
-                </span>
-              </div>
+        <!-- Slide -->
+        <div class="download-card">
+          <div class="card-info">
+            <div class="card-label">SLIDE</div>
+            <h3 class="card-title">講義スライド</h3>
+            <p class="card-description">3つの壁を越えるための考え方と実践テクニック</p>
+            <div class="card-meta">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                PDF形式
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                2026.02.09
+              </span>
             </div>
-            <a href="#" class="download-btn" download>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              ダウンロード
-            </a>
           </div>
-
-          <!-- Handout -->
-          <div class="download-card">
-            <div class="card-info">
-              <div class="card-label">HANDOUT</div>
-              <h3 class="card-title">配布資料（チェックリスト集）</h3>
-              <p class="card-description">需要リサーチ指標・心理学一覧・撮影テクニック・リスク管理シート</p>
-              <div class="card-meta">
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  PDF形式
-                </span>
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  2026.02.09
-                </span>
-              </div>
-            </div>
-            <a href="#" class="download-btn" download>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              ダウンロード
-            </a>
-          </div>
+          <a href="#" class="download-btn" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            ダウンロード
+          </a>
         </div>
-      </section>
 
-      <!-- Info Section -->
-      <section class="section">
-        <div class="info-box">
-          <h3 class="info-box-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            資料の使い方
-          </h3>
-          <ul>
-            <li>講義スライドは、講座内容の復習や振り返りにご活用ください</li>
-            <li>配布資料のチェックリストは、実際にSNS投稿する際に活用できます</li>
-            <li>資料の二次配布・転載はご遠慮ください</li>
-            <li>ご不明点があれば、阿蘇テレワークセンターまでお問い合わせください</li>
-          </ul>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Message Section -->
-      <section class="section">
-        <div class="message-box">
-          <p class="message-quote">「自分の未来を、自分でデザインしよう。」</p>
-          <p class="message-text">阿蘇の魅力と、あなたの才能を、最高の方法で届けよう。<br>講座で学んだことを、ぜひ実践してみてください。</p>
-        </div>
-      </section>
+    <!-- Info Box -->
+    <section class="info-section">
+      <div class="info-box">
+        <h3 class="info-box-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          資料の使い方
+        </h3>
+        <ul>
+          <li>講義スライドは、講座内容の復習や振り返りにご活用ください</li>
+          <li>配布資料のチェックリストは、実際にSNS投稿する際に活用できます</li>
+          <li>資料の二次配布・転載はご遠慮ください</li>
+          <li>ご不明点があれば、阿蘇テレワークセンターまでお問い合わせください</li>
+        </ul>
+      </div>
+    </section>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="page-footer">
-      <p class="footer-org">一般財団法人 阿蘇テレワークセンター</p>
-      <p class="footer-copy">© 2026 Aso Telework Center. All rights reserved.</p>
-    </footer>
+    <!-- Message Box -->
+    <section class="message-section">
+      <div class="message-box">
+        <p class="message-quote">「自分の未来を、自分でデザインしよう。」</p>
+        <p class="message-text">阿蘇の魅力と、あなたの才能を、最高の方法で届けよう。<br>講座で学んだことを、ぜひ実践してみてください。</p>
+      </div>
+    </section>
 
   </div>
 
-  <!-- Password Script -->
-  <script>
-    (function() {
-      // ====================================
-      // パスワード設定（ここを変更してください）
-      // ====================================
-      const CORRECT_PASSWORD = 'aso_leaders';
-      // ====================================
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-logo">一般財団法人 阿蘇テレワークセンター</p>
+    <p class="footer-copy">&copy; 2026 Aso Telework Center. All rights reserved.</p>
+  </footer>
 
-      const passwordScreen = document.getElementById('passwordScreen');
-      const mainWrapper = document.getElementById('mainWrapper');
-      const passwordInput = document.getElementById('passwordInput');
-      const passwordSubmit = document.getElementById('passwordSubmit');
-      const passwordError = document.getElementById('passwordError');
+</div>
 
-      // Check if already authenticated in this session
-      if (sessionStorage.getItem('authenticated') === 'true') {
-        passwordScreen.classList.add('hidden');
-        mainWrapper.classList.add('visible');
-      }
+<!-- ━━ Password Script ━━ -->
+<script>
+(function() {
+  // ====================================
+  // パスワード設定（ここを変更してください）
+  // ====================================
+  const CORRECT_PASSWORD = 'aso2026';
+  // ====================================
 
-      function checkPassword() {
-        const enteredPassword = passwordInput.value;
-        
-        if (enteredPassword === CORRECT_PASSWORD) {
-          sessionStorage.setItem('authenticated', 'true');
-          passwordScreen.classList.add('hidden');
-          mainWrapper.classList.add('visible');
-        } else {
-          passwordInput.classList.add('error');
-          passwordError.classList.add('show');
-          
-          setTimeout(function() {
-            passwordInput.classList.remove('error');
-          }, 400);
-        }
-      }
+  const passwordScreen = document.getElementById('passwordScreen');
+  const mainWrapper = document.getElementById('mainWrapper');
+  const passwordInput = document.getElementById('passwordInput');
+  const passwordSubmit = document.getElementById('passwordSubmit');
+  const passwordError = document.getElementById('passwordError');
 
-      passwordSubmit.addEventListener('click', checkPassword);
+  if (sessionStorage.getItem('authenticated') === 'true') {
+    passwordScreen.classList.add('hidden');
+    mainWrapper.classList.add('visible');
+  }
 
-      passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          checkPassword();
-        }
-      });
+  function checkPassword() {
+    if (passwordInput.value === CORRECT_PASSWORD) {
+      sessionStorage.setItem('authenticated', 'true');
+      passwordScreen.classList.add('hidden');
+      mainWrapper.classList.add('visible');
+    } else {
+      passwordInput.classList.add('error');
+      passwordError.classList.add('show');
+      setTimeout(() => passwordInput.classList.remove('error'), 400);
+    }
+  }
 
-      passwordInput.addEventListener('input', function() {
-        passwordError.classList.remove('show');
-      });
-    })();
-  </script>
+  passwordSubmit.addEventListener('click', checkPassword);
+  passwordInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
+  passwordInput.addEventListener('input', () => passwordError.classList.remove('show'));
+})();
+</script>
 
 </body>
 </html>
